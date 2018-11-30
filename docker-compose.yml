@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  db:
+    image: 'postgres:9.6.1'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 's3cr3t'
+      POSTGRES_DB: 'oauth'
+    ports:
+      - '5432:5432'

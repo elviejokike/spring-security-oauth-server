@@ -1,0 +1,20 @@
+server:
+  port: ${PORT:8888}
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          lob.non_contextual_creation: true # https://hibernate.atlassian.net/browse/HHH-12368
+  datasource:
+    url: ${DB_CONNECTION_URL:jdbc:postgresql://localhost:5432}/${DB_NAME:oauth}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:s3cr3t}
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: ["classpath:/db/migration/postgresql"]
