@@ -17,7 +17,7 @@ public abstract class AbstractEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    public AbstractEntity(){
+    public AbstractEntity() {
         this.id = UUID.randomUUID();
     }
 }

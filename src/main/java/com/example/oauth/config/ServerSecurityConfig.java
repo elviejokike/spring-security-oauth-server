@@ -1,6 +1,5 @@
 package com.example.oauth.config;
 
-import com.example.oauth.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,13 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 @Configuration
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired(required = true)
+    //    @Autowired(required = true)
 //    CustomUserDetailsService customUserDetailsService;
 //
     @Autowired

@@ -55,7 +55,7 @@ public class TokenStoreConfiguration {
         @Override
         public Object deserialize(byte[] bytes) throws SerializationException {
 
-            if(bytes == null){
+            if (bytes == null) {
                 return null;
             }
 
