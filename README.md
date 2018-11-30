@@ -7,4 +7,5 @@
 - JWT Tokens
 - Redis for Token Store
 - Flyaway migration scripts
+- TestContainers for unit testing
 

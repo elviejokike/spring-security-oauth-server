@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.Arrays;
 
@@ -31,6 +32,9 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TokenStore tokenStore;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
@@ -63,14 +67,9 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
                 Arrays.asList( accessTokenConverter()));
 
         endpoints
-                .tokenStore(tokenStore())
+                .tokenStore(tokenStore)
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
     }
 
     @Bean
