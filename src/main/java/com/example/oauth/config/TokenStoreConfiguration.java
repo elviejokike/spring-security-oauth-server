@@ -11,7 +11,9 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.JdkSerializationStrategy;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 
 @Configuration
 public class TokenStoreConfiguration {
@@ -24,7 +26,13 @@ public class TokenStoreConfiguration {
 
     @Bean
     public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
-        return new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setSerializationStrategy(redisSerializationStrateg());
+        return tokenStore;
+    }
+
+    private RedisTokenStoreSerializationStrategy redisSerializationStrateg() {
+        return new JdkSerializationStrategy();
     }
 
     static class JsonRedisSerializer implements RedisSerializer<Object> {
