@@ -5,12 +5,12 @@
 
 ### Features
 
-- Spring boot v2
+- [Spring boot](https://spring.io/projects/spring-boot) OAuth2 framework
 - JPA Data Store for user management
 - JWT token formatting
-- Redis for Token Store
-- Flyaway migration scripts
-- TestContainers for unit testing
+- [Redis](https://redis.io/) for Token Store
+- [Flywaydb](https://flywaydb.org/) for DB migration
+- [TestContainers](https://www.testcontainers.org) for unit testing
 
 ### JPA
 

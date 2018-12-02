@@ -10,6 +10,10 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'net.ltgt.apt' version '0.15'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -42,6 +46,7 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-data-jpa',
 		'org.springframework.data:spring-data-redis',
 		'redis.clients:jedis:2.9.0',
+		'org.mapstruct:mapstruct-jdk8:1.2.0.Final',
 		'org.projectlombok:lombok',
 		'org.hibernate:hibernate-java8',
 		'org.postgresql:postgresql:42.2.4',
@@ -49,6 +54,7 @@ dependencies {
 	)
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	annotationProcessor(
+			'org.mapstruct:mapstruct-processor:1.2.0.Final',
 			'org.projectlombok:lombok:1.18.2'
 	)
 }
