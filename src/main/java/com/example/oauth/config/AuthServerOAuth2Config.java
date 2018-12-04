@@ -43,18 +43,13 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
-        clients.withClientDetails(clientDetailsService);
-//        clients.inMemory()
-//                .withClient("sampleClientId")
-//                .authorizedGrantTypes("implicit")
-//                .scopes("read")
-//                .autoApprove(true)
-//                .and()
-//                .withClient("clientIdPassword")
-//                .secret(passwordEncoder.encode("secret"))
-//                .authorizedGrantTypes(
-//                        "password", "authorization_code", "refresh_token")
-//                .scopes("read");
+        clients//.withClientDetails(clientDetailsService)
+            .inMemory()
+                .withClient("default-client")
+                .secret(passwordEncoder.encode("secret"))
+                .authorizedGrantTypes(
+                        "password", "authorization_code", "refresh_token")
+                .scopes("read");
     }
 
     @Override

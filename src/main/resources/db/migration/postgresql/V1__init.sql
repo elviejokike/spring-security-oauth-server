@@ -4,6 +4,9 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 
+INSERT INTO "users" ("id", "username", "password") VALUES
+  ('ef0a220f-2ee7-4a31-8642-eb0db38257f0', 'admin', '$2a$10$mdrAnl3/7I9pk5ajHNgIUuaSEDVLA5DoliMZMtmnQ/z5FlHNGnOdu');
+
 CREATE UNIQUE INDEX users_username ON users (username);
 
 CREATE TABLE roles (

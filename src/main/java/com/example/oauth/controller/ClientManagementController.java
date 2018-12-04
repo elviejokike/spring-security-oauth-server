@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RequestMapping(path = "auth/users")
+@RequestMapping(path = "auth/clients")
 @RestController
-public class UserManagementController {
+public class ClientManagementController {
+
 }

@@ -1,6 +1,10 @@
 server:
   port: ${PORT:8888}
 
+service:
+  admin:
+    password: s3cr3To!
+
 spring:
   jpa:
     hibernate:

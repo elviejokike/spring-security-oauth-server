@@ -11,9 +11,6 @@ import org.mapstruct.ReportingPolicy;
 public interface UserMapper {
 
     User toResource(UserEntity entity);
-
-    UserEntity toEntity(User resource);
-
 }
 
 
