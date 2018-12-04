@@ -18,52 +18,52 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 @Configuration
 public class TokenStoreConfiguration {
 
-    @Bean
-    public JedisConnectionFactory jedisConnectionFactory() {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
-        return new JedisConnectionFactory(redisStandaloneConfiguration);
-    }
+	@Bean
+	public JedisConnectionFactory jedisConnectionFactory() {
+		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
+		return new JedisConnectionFactory(redisStandaloneConfiguration);
+	}
 
-    @Bean
-    public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setSerializationStrategy(redisSerializationStrateg());
-        return tokenStore;
-    }
+	@Bean
+	public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
+		RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+		tokenStore.setSerializationStrategy(redisSerializationStrateg());
+		return tokenStore;
+	}
 
-    private RedisTokenStoreSerializationStrategy redisSerializationStrateg() {
-        return new JdkSerializationStrategy();
-    }
+	private RedisTokenStoreSerializationStrategy redisSerializationStrateg() {
+		return new JdkSerializationStrategy();
+	}
 
-    static class JsonRedisSerializer implements RedisSerializer<Object> {
+	static class JsonRedisSerializer implements RedisSerializer<Object> {
 
-        private final ObjectMapper om;
+		private final ObjectMapper om;
 
-        public JsonRedisSerializer() {
-            this.om = new ObjectMapper().enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        }
+		public JsonRedisSerializer() {
+			this.om = new ObjectMapper().enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+		}
 
-        @Override
-        public byte[] serialize(Object t) throws SerializationException {
-            try {
-                return om.writeValueAsBytes(t);
-            } catch (JsonProcessingException e) {
-                throw new SerializationException(e.getMessage(), e);
-            }
-        }
+		@Override
+		public byte[] serialize(Object t) throws SerializationException {
+			try {
+				return om.writeValueAsBytes(t);
+			} catch (JsonProcessingException e) {
+				throw new SerializationException(e.getMessage(), e);
+			}
+		}
 
-        @Override
-        public Object deserialize(byte[] bytes) throws SerializationException {
+		@Override
+		public Object deserialize(byte[] bytes) throws SerializationException {
 
-            if (bytes == null) {
-                return null;
-            }
+			if (bytes == null) {
+				return null;
+			}
 
-            try {
-                return om.readValue(bytes, Object.class);
-            } catch (Exception e) {
-                throw new SerializationException(e.getMessage(), e);
-            }
-        }
-    }
+			try {
+				return om.readValue(bytes, Object.class);
+			} catch (Exception e) {
+				throw new SerializationException(e.getMessage(), e);
+			}
+		}
+	}
 }

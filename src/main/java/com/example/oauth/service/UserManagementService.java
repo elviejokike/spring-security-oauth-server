@@ -19,57 +19,54 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class UserManagementService {
 
-    public static final String ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS = "Administration password not set. Please check your settings";
+	public static final String ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS = "Administration password not set. Please check your settings";
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	PasswordValidator passwordValidator;
+
+	@Autowired
+	UserMapper userMapper;
+
+	@Autowired
+	ServiceConfiguration serviceConfiguration;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 
-    @Autowired
-    UserRepository userRepository;
+	@EventListener(ApplicationReadyEvent.class)
+	public void handleAdminPasswordRegistration() {
+		ServiceConfiguration.Admin adminProps = serviceConfiguration.getAdmin();
 
-    @Autowired
-    PasswordValidator passwordValidator;
+		if (adminProps != null && passwordValidator.isValid(adminProps.getPassword())) {
+			changeAdminPassword(adminProps.getPassword());
+		} else {
+			log.error(ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS);
+			throw new RuntimeException(ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS);
+		}
+	}
 
-    @Autowired
-    UserMapper userMapper;
+	@Transactional
+	protected void changeAdminPassword(String password) {
+		UserEntity userEntity = userRepository.findByUsername("admin");
+		userEntity.setPassword(passwordEncoder.encode(password));
 
-    @Autowired
-    ServiceConfiguration serviceConfiguration;
+		userRepository.save(userEntity);
+	}
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Transactional
+	public User signUp(SignUpRequest signUpRequest) {
 
+		UserEntity userEntity = new UserEntity();
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void handleAdminPasswordRegistration(){
+		userEntity.setUsername(signUpRequest.getUsername());
+		userEntity.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
-        ServiceConfiguration.Admin adminProps = serviceConfiguration.getAdmin();
+		userEntity = userRepository.save(userEntity);
 
-        if (adminProps != null && passwordValidator.isValid(adminProps.getPassword())) {
-            changeAdminPassword(adminProps.getPassword());
-        } else {
-            log.error(ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS);
-            throw new RuntimeException(ADMINISTRATION_CREDENTIAL_NOT_SET_PLEASE_CHECK_YOUR_SETTINGS);
-        }
-
-    }
-
-    @Transactional
-    protected void changeAdminPassword(String password) {
-        UserEntity userEntity = userRepository.findByUsername("admin");
-        userEntity.setPassword(passwordEncoder.encode(password));
-
-        userRepository.save(userEntity);
-    }
-
-    @Transactional
-    public User signUp(SignUpRequest signUpRequest) {
-
-        UserEntity userEntity = new UserEntity();
-
-        userEntity.setUsername(signUpRequest.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-
-        userEntity = userRepository.save(userEntity);
-
-        return userMapper.toResource(userEntity);
-    }
+		return userMapper.toResource(userEntity);
+	}
 }

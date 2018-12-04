@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Setter
 public class ServiceConfiguration {
 
-    private Admin admin;
+	private Admin admin;
 
-    @Getter
-    @Setter
-    public static class Admin {
-        private String password;
-    }
+	@Getter
+	@Setter
+	public static class Admin {
+		private String password;
+	}
 }

@@ -14,6 +14,6 @@ import javax.persistence.Table;
 @Setter
 public class RoleEntity extends AbstractEntity {
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 }

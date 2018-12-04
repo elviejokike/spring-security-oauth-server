@@ -13,10 +13,10 @@ import javax.persistence.Table;
 @Setter
 public class UserEntity extends AbstractEntity {
 
-    @Column(name = "username")
-    private String username;
+	@Column(name = "username")
+	private String username;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "password")
+	private String password;
 
 }

@@ -13,18 +13,18 @@ import java.util.UUID;
 @Setter
 public class UserRoleEntity extends AbstractEntity {
 
-    @Column(name = "user_id", insertable = true, nullable = false)
-    private UUID userId;
+	@Column(name = "user_id", insertable = true, nullable = false)
+	private UUID userId;
 
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private UserEntity user;
+	@JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(optional = false)
+	private UserEntity user;
 
-    @Column(name = "role_id", insertable = true, nullable = false)
-    private UUID roleId;
+	@Column(name = "role_id", insertable = true, nullable = false)
+	private UUID roleId;
 
-    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    private RoleEntity role;
+	@JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	private RoleEntity role;
 
 }

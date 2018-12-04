@@ -12,19 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomClientDetailsService implements ClientDetailsService {
 
-    private final ClientDetailsRepository clientDetailsRepository;
+	private final ClientDetailsRepository clientDetailsRepository;
 
-    @Autowired
-    public CustomClientDetailsService(ClientDetailsRepository clientDetailsRepository) {
-        this.clientDetailsRepository = clientDetailsRepository;
-    }
+	@Autowired
+	public CustomClientDetailsService(ClientDetailsRepository clientDetailsRepository) {
+		this.clientDetailsRepository = clientDetailsRepository;
+	}
 
-    @Override
-    public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        ClientDetailsEntity entity = clientDetailsRepository.findByClientId(clientId);
-        if (entity == null) {
-            throw new NoSuchClientException("Client not found " + clientId);
-        }
-        return new CustomClientDetails(entity);
-    }
+	@Override
+	public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
+		ClientDetailsEntity entity = clientDetailsRepository.findByClientId(clientId);
+		if (entity == null) {
+			throw new NoSuchClientException("Client not found " + clientId);
+		}
+		return new CustomClientDetails(entity);
+	}
 }

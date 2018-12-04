@@ -8,6 +8,5 @@ import java.util.UUID;
 @Setter
 @Getter
 public abstract class Resource {
-
-    private UUID id;
+	private UUID id;
 }

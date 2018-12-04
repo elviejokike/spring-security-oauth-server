@@ -8,13 +8,13 @@ import org.mapstruct.MappingInheritanceStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @MapperConfig(
-        unmappedTargetPolicy = ReportingPolicy.ERROR,
-        mappingInheritanceStrategy = MappingInheritanceStrategy.AUTO_INHERIT_FROM_CONFIG
+		unmappedTargetPolicy = ReportingPolicy.ERROR,
+		mappingInheritanceStrategy = MappingInheritanceStrategy.AUTO_INHERIT_FROM_CONFIG
 )
 public interface AbstractMapperConfig {
 
-    Resource toResource(AbstractEntity entity);
+	Resource toResource(AbstractEntity entity);
 
-    @Mapping(target = "id", ignore = true)
-    AbstractEntity toEntity(Resource resource);
+	@Mapping(target = "id", ignore = true)
+	AbstractEntity toEntity(Resource resource);
 }

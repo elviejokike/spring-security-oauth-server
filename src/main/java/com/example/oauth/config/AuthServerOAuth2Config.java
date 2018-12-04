@@ -21,54 +21,54 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private TokenStore tokenStore;
+	@Autowired
+	private TokenStore tokenStore;
 
-    @Autowired
-    ClientDetailsService clientDetailsService;
+	@Autowired
+	ClientDetailsService clientDetailsService;
 
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
-    }
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+		oauthServer
+				.tokenKeyAccess("permitAll()")
+				.checkTokenAccess("isAuthenticated()");
+	}
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients)
-            throws Exception {
-        clients//.withClientDetails(clientDetailsService)
-            .inMemory()
-                .withClient("default-client")
-                .secret(passwordEncoder.encode("secret"))
-                .authorizedGrantTypes(
-                        "password", "authorization_code", "refresh_token")
-                .scopes("read");
-    }
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients)
+			throws Exception {
+		clients//.withClientDetails(clientDetailsService)
+				.inMemory()
+				.withClient("default-client")
+				.secret(passwordEncoder.encode("secret"))
+				.authorizedGrantTypes(
+						"password", "authorization_code", "refresh_token")
+				.scopes("read");
+	}
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(
-                Arrays.asList(accessTokenConverter()));
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		tokenEnhancerChain.setTokenEnhancers(
+				Arrays.asList(accessTokenConverter()));
 
-        endpoints
-                .tokenStore(tokenStore)
-                .tokenEnhancer(tokenEnhancerChain)
-                .authenticationManager(authenticationManager);
-    }
+		endpoints
+				.tokenStore(tokenStore)
+				.tokenEnhancer(tokenEnhancerChain)
+				.authenticationManager(authenticationManager);
+	}
 
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("123");
-        return converter;
-    }
+	@Bean
+	public JwtAccessTokenConverter accessTokenConverter() {
+		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+		converter.setSigningKey("123");
+		return converter;
+	}
 }

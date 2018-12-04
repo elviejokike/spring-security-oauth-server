@@ -13,11 +13,11 @@ import java.util.UUID;
 @Setter
 public abstract class AbstractEntity {
 
-    @Id
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+	@Id
+	@Column(name = "id", updatable = false, nullable = false)
+	private UUID id;
 
-    public AbstractEntity() {
-        this.id = UUID.randomUUID();
-    }
+	public AbstractEntity() {
+		this.id = UUID.randomUUID();
+	}
 }

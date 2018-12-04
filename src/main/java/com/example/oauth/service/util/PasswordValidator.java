@@ -8,53 +8,49 @@ import java.util.regex.Pattern;
 @Service
 public class PasswordValidator {
 
-    private Pattern pattern = null;
+	private Pattern pattern = null;
 
-    /**
-     * No one can make a direct instance
-     * */
-    public PasswordValidator()
-    {
-        pattern = getPattern(true, true, true, 8,16);
-    }
+	/**
+	 * No one can make a direct instance
+	 */
+	public PasswordValidator() {
+		pattern = getPattern(true, true, true, 8, 16);
+	}
 
-    /**
-     * Force the user to build a validator using this way only
-     * */
-    public static Pattern getPattern( boolean forceSpecialChar,
-                                      boolean forceCapitalLetter,
-                                      boolean forceNumber,
-                                      int minLength,
-                                      int maxLength)
-    {
-        StringBuilder patternBuilder = new StringBuilder("((?=.*[a-z])");
+	/**
+	 * Force the user to build a validator using this way only
+	 */
+	public static Pattern getPattern(boolean forceSpecialChar,
+									 boolean forceCapitalLetter,
+									 boolean forceNumber,
+									 int minLength,
+									 int maxLength) {
+		StringBuilder patternBuilder = new StringBuilder("((?=.*[a-z])");
 
-        if (forceSpecialChar)
-        {
-            patternBuilder.append("(?=.*[@#$%^&+=!])");
-        }
+		if (forceSpecialChar) {
+			patternBuilder.append("(?=.*[@#$%^&+=!])");
+		}
 
-        if (forceCapitalLetter)
-        {
-            patternBuilder.append("(?=.*[A-Z])");
-        }
+		if (forceCapitalLetter) {
+			patternBuilder.append("(?=.*[A-Z])");
+		}
 
-        if (forceNumber)
-        {
-            patternBuilder.append("(?=.*\\d)");
-        }
+		if (forceNumber) {
+			patternBuilder.append("(?=.*\\d)");
+		}
 
-        patternBuilder.append(".{" + minLength + "," + maxLength + "})");
-        return Pattern.compile(patternBuilder.toString());
-    }
+		patternBuilder.append(".{" + minLength + "," + maxLength + "})");
+		return Pattern.compile(patternBuilder.toString());
+	}
 
-    /**
-     * Check if the provided password is valid
-     * @param password a string value
-     * @return true / false
-     */
-    public boolean isValid(String password){
-        Matcher m = pattern.matcher(password);
-        return m.matches();
-    }
+	/**
+	 * Check if the provided password is valid
+	 *
+	 * @param password a string value
+	 * @return true / false
+	 */
+	public boolean isValid(String password) {
+		Matcher m = pattern.matcher(password);
+		return m.matches();
+	}
 }

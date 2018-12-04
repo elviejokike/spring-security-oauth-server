@@ -10,7 +10,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(config = AbstractMapperConfig.class, componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface UserMapper {
 
-    User toResource(UserEntity entity);
+	User toResource(UserEntity entity);
 }
 
 

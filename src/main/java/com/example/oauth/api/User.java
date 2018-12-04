@@ -6,7 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User extends Resource {
-
-    private String username;
-
+	private String username;
 }
