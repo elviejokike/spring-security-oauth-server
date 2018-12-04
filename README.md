@@ -2,31 +2,23 @@
 
 ### Introduction
 
+The Authorization Server is a simple implementation of the OAuth2 Authorization server based on Spring Boot.
+This application can be used as a reference of how to use Spring Boot capabilities for rapid prototyping / development
+of server based applications.
 
-### Features
+In addition to the  [Spring boot OAuth2](https://spring.io/projects/spring-boot)  framework, this project also features:
 
-- [Spring boot](https://spring.io/projects/spring-boot) OAuth2 framework
-- JPA Data Store for user management
-- JWT token formatting
 - [Redis](https://redis.io/) for Token Store
 - [Flywaydb](https://flywaydb.org/) for DB migration
+- [JPA Data](https://spring.io/guides/gs/accessing-data-jpa) for data management
 - [TestContainers](https://www.testcontainers.org) for unit testing
 
-### JPA
+
 
 #### Configuration
 
-TODO: Describe
+| Name | Description | Default value |
+|------|-------------|---------|
+| service.admin.password | Default admin password | s3cr3To!  |
 
-#### Structure
 
-TODO: Describe data model
-
-### Redis
-
-#### Configuation
-TODO: Describe Configuraiton
-
-#### Serialization
-
-TODO: Describe approach
