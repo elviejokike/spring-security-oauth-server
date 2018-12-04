@@ -24,7 +24,7 @@ public class UserRoleEntity extends AbstractEntity {
     private UUID roleId;
 
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private RoleEntity role;
 
 }

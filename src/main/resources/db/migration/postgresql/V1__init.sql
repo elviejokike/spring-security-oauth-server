@@ -4,9 +4,6 @@ CREATE TABLE users (
   password VARCHAR(255)
 );
 
-INSERT INTO "users" ("id", "username", "password") VALUES
-  ('ef0a220f-2ee7-4a31-8642-eb0db38257f0', 'admin', '$2a$10$mdrAnl3/7I9pk5ajHNgIUuaSEDVLA5DoliMZMtmnQ/z5FlHNGnOdu');
-
 CREATE UNIQUE INDEX users_username ON users (username);
 
 CREATE TABLE roles (
@@ -23,6 +20,15 @@ CREATE TABLE user_roles (
   CONSTRAINT user_id_id_fkey FOREIGN KEY (user_id) REFERENCES users (id),
   CONSTRAINT role_id_id_fkey FOREIGN KEY (role_id) REFERENCES roles (id)
 );
+
+-- Create Default Administraror User
+
+INSERT INTO "users" ("id", "username", "password") VALUES
+('ef0a220f-2ee7-4a31-8642-eb0db38257f0', 'admin', '$2a$10$mdrAnl3/7I9pk5ajHNgIUuaSEDVLA5DoliMZMtmnQ/z5FlHNGnOdu');
+INSERT INTO "roles" ("id", "name") VALUES
+('cac64683-7659-4d72-9e4d-05ee13266a34', 'ADMIN');
+INSERT INTO "user_roles" ("id","user_id","role_id") VALUES
+('40917b5f-eb1d-4f18-8409-9c3ea4316e82', 'ef0a220f-2ee7-4a31-8642-eb0db38257f0', 'cac64683-7659-4d72-9e4d-05ee13266a34');
 
 CREATE TABLE client_details (
   id            UUID PRIMARY KEY NOT NULL,
