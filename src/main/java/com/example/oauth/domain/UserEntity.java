@@ -7,8 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "users")
+@Table
 @Getter
 @Setter
 public class UserEntity extends AbstractEntity {

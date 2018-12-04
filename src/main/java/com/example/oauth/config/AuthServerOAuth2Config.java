@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -29,6 +30,9 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     @Autowired
     private TokenStore tokenStore;
 
+    @Autowired
+    ClientDetailsService clientDetailsService;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         oauthServer
@@ -39,17 +43,18 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
-        clients.inMemory()
-                .withClient("sampleClientId")
-                .authorizedGrantTypes("implicit")
-                .scopes("read")
-                .autoApprove(true)
-                .and()
-                .withClient("clientIdPassword")
-                .secret(passwordEncoder.encode("secret"))
-                .authorizedGrantTypes(
-                        "password", "authorization_code", "refresh_token")
-                .scopes("read");
+        clients.withClientDetails(clientDetailsService);
+//        clients.inMemory()
+//                .withClient("sampleClientId")
+//                .authorizedGrantTypes("implicit")
+//                .scopes("read")
+//                .autoApprove(true)
+//                .and()
+//                .withClient("clientIdPassword")
+//                .secret(passwordEncoder.encode("secret"))
+//                .authorizedGrantTypes(
+//                        "password", "authorization_code", "refresh_token")
+//                .scopes("read");
     }
 
     @Override
