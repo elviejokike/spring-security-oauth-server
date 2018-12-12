@@ -11,8 +11,9 @@ In addition to the  [Spring boot OAuth2](https://spring.io/projects/spring-boot)
 - [Redis](https://redis.io/) for Token Store
 - [Flywaydb](https://flywaydb.org/) for DB migration
 - [JPA Data](https://spring.io/guides/gs/accessing-data-jpa) for data management
-- [TestContainers](https://www.testcontainers.org) for unit testing
 
+In addition, this authorization server works also as a OAuth Resource Server allowing client applications to use
+the users and client management REST API.
 
 
 #### Configuration
