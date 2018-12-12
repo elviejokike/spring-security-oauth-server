@@ -44,8 +44,13 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-				.antMatcher("/**").authorizeRequests()
-				.antMatchers("/", "/login**").permitAll()
+				.csrf()
+				.disable()
+				.headers()
+				.frameOptions()
+				.disable()
+			.and()
+				.authorizeRequests()
 				.anyRequest().authenticated();
 
 	}
